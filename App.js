@@ -14,7 +14,7 @@ const defaultLocation = {
 export default class MapExample extends React.Component {
 
   // Set the component's default state
-  state = { userLocation: {}, markerLocation: defaultLocation };
+  state = { userLocation: {}, markerLocations: [] };
 
   componentDidMount() {
     // Get the user's current location (latitude and longitude)
@@ -77,19 +77,17 @@ export default class MapExample extends React.Component {
 
   render() {
     // This is our map marker (Pin)
-    const marker = (
+    const markers = this.state.markerLocations.map( (location, index) => 
       <MapView.Marker
-        coordinate={this.state.markerLocation}
-        description={'Tap Here'}
-        onCalloutPress={() => {
-          Alert.alert('Pin Pressed');
-        }}
+        coordinate={location}
+        description={'Tap Here To Remove'}
+        key ={index}
+        onCalloutPress={() => this.removePin(index)}
         pinColor={'green'}
         stopPropagation={true}
-        title={'MY SPOT'}
+        title={`Pin ${index}`}
       />
     );
-
     // Render our map using all our component state variables
     return (
       <MapView
@@ -107,7 +105,7 @@ export default class MapExample extends React.Component {
           borderTopWidth: 0.5,
           borderTopColor: '#AAA',
         }}>
-        {marker}
+        {markers}
       </MapView>
     );
   }
