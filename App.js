@@ -73,7 +73,7 @@ export default class MapExample extends React.Component {
   }
 
   // If the map is tapped, save the lat and long so we know where to put a pin
-  handleMapTap = event =>{this.setState({markerLocation: event.nativeEvent.coordinate})}
+  handleMapTap = event =>{this.setState({markerLocations: this.state.markerLocations.concat(event.nativeEvent.coordinate)})}
 
   render() {
     // This is our map marker (Pin)
